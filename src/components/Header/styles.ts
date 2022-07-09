@@ -4,7 +4,7 @@ export const Container = styled.header`
   background: var(--blue);
 `;
 export const Content = styled.div`
-  max-width: 1128px;
+  max-width: 70.5rem;
   margin: 0 auto;
 
   padding: 2rem 1rem 10rem;
