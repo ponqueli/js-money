@@ -7,6 +7,7 @@ export const Container = styled.div`
     width: 100%;
     border-spacing: 0 0.5rem;
 
+
     th {
       color: var(--text-body);
       font-weight: 400;
@@ -16,12 +17,11 @@ export const Container = styled.div`
     }
 
     td {
+      border: solid 1px var(--shape);
       padding: 1rem 2rem;
-      border: 0;
       background: var(--shape);
       color: var(--text-body);
-      border-radius: 0.3125rem;
-
+      border-style: none solid solid none;
       &:first-child {
         color: var(--text-title);
       }
@@ -34,5 +34,14 @@ export const Container = styled.div`
         color: var(--green);
       }
     }
+
+    tr:first-child td:first-child { border-top-left-radius: 0.3125rem; }
+    tr:first-child td:last-child { border-top-right-radius: 0.3125rem; }
+
+    tr:last-child td:first-child { border-bottom-left-radius: 0.3125rem; }
+    tr:last-child td:last-child { border-bottom-right-radius: 0.3125rem; }
+
+    tr:first-child td { border-top-style: solid; }
+    tr td:first-child { border-left-style: solid; }
   }
 `;
