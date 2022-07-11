@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     --text-body: #969CB3;
     --input-background: #e7e9ee;
     --border-color: #d7d7d7;
+    --border-color-darker: "#aaa";
   }
 
   * {
