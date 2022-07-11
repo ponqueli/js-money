@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Modal from "react-modal";
-import { Dashboard } from "./components/Dashboard";
-import { Header } from "./components/Header";
-
-import { GlobalStyle } from "./styles/global";
 import { createServer, Model } from "miragejs";
 import { NewTransactionModal } from "./components/NewTransactionModal";
+import { TransactionsProvider } from "./TransactionsContext";
+import { Dashboard } from "./components/Dashboard";
+import { Header } from "./components/Header";
+import { GlobalStyle } from "./styles/global";
 
 Modal.setAppElement("#root");
 
@@ -62,7 +62,7 @@ export function App() {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
       
       <Dashboard/>
@@ -73,6 +73,6 @@ export function App() {
       />
 
       <GlobalStyle/>
-    </>
+    </TransactionsProvider>
   );
 };
