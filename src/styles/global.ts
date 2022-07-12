@@ -81,6 +81,13 @@ export const GlobalStyle = createGlobalStyle`
     padding: 3rem;
     position: relative;
     border-radius: 0.3125rem;
+
+    @media (max-width: 84rem) {
+      top: 26%;
+      height: 100%;
+      padding: 1.25rem;
+    }
+    
   }
   .react-modal-close{
     position: absolute;
@@ -92,6 +99,11 @@ export const GlobalStyle = createGlobalStyle`
 
     &:hover{
       filter: brightness(0.7);
+    }
+
+    @media (max-width: 84rem) {
+      top:  0.5rem;
+      right: 0.5rem;
     }
   }
 `;

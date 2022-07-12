@@ -4,8 +4,12 @@ import { darken, transparentize } from "polished";
 export const Container = styled.form`
   h2 {
     color: var(--text-title);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 2rem;
+    
+    @media (max-width: 720px) {
+      font-size: 1.5rem;
+    }
   }
 
   input {
