@@ -4,16 +4,25 @@ import { Container } from "./styles";
 export function TransactionsTable(){
   const { transactions } = useTransactions();
 
+  function getTotalItensDescribed(){
+    if(transactions.length === 0) return ``;
+    return `${transactions.length} itens`;
+  }
+
   return(
     <Container>
       {transactions.length > 0 ? (
         <table >
           <thead>
             <tr>
-              <th>Título</th>
-              <th>Valor</th>
-              <th>Categoria</th>
-              <th>Data</th>
+              <th className="short-text">
+                <p>Listagem</p>
+                <p>{ getTotalItensDescribed() }</p>
+              </th>
+              <th className="hide-on-media">Título</th>
+              <th className="hide-on-media">Valor</th>
+              <th className="hide-on-media">Categoria</th>
+              <th className="hide-on-media">Data</th>
             </tr>
           </thead>
           <tbody>
@@ -26,8 +35,8 @@ export function TransactionsTable(){
                       currency: 'BRL'
                     }).format(transaction.amount)}
                 </td>
-                <td>{transaction.category}</td>
-                <td>
+                <td className="inline-media-screen-left">{transaction.category}</td>
+                <td className="inline-media-screen-right">
                   { new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.createdAt)) }
                 </td>
               </tr>  

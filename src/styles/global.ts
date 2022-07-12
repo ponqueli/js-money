@@ -72,6 +72,10 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 42.5rem){ 
+      align-items: flex-end;
+    }
   }
 
   .react-modal-content {
@@ -82,10 +86,16 @@ export const GlobalStyle = createGlobalStyle`
     position: relative;
     border-radius: 0.3125rem;
 
-    @media (max-width: 84rem) {
-      top: 26%;
-      height: 100%;
-      padding: 1.25rem;
+    @media screen and (max-width: 69rem) {
+      padding: 1.5rem;
+      overflow-y: auto;
+      width: 50%;
+    }
+
+    @media screen and (max-width: 42.5rem){ 
+      width: 100%;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
     }
     
   }
@@ -101,7 +111,12 @@ export const GlobalStyle = createGlobalStyle`
       filter: brightness(0.7);
     }
 
-    @media (max-width: 84rem) {
+    @media screen and (max-width: 69rem){
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    @media screen and (max-width: 36rem) {
       top:  0.5rem;
       right: 0.5rem;
     }
