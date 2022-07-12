@@ -36,6 +36,10 @@ export const Container = styled.div`
       }
     }
 
+    tr {
+      position: relative;
+    }
+
     td {
       border: solid 1px var(--shape);
       padding: 1rem 2rem;
@@ -52,6 +56,31 @@ export const Container = styled.div`
 
       &.deposit {
         color: var(--green);
+      }
+
+      button {
+        background: transparent;
+        border: 0;
+        display: flex;
+        justify-content: center;
+
+        svg {
+          color: var(--red);
+          width: 20px;
+          height: 20px;
+        }
+
+        &:hover {
+          svg {
+            filter: brightness(0.5);
+          }
+        }
+
+        @media screen and (max-width: 24rem){
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+        }
       }
 
       @media screen and (max-width: 24rem){

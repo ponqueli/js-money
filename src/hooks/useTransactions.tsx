@@ -19,7 +19,8 @@ interface TransactionsProviderProps{
 
 interface TransactionsContextData {
   transactions: Transaction[];
-  createTransaction: (transaction: TransactionInput) => Promise<void>;
+  createTransaction: (transaction: TransactionInput) => void;
+  deleteTransaction: (id: number) => void;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -27,27 +28,50 @@ const TransactionsContext = createContext<TransactionsContextData>(
 );
 
 export function TransactionsProvider({ children }:TransactionsProviderProps) {
+  const KEY = '@JSMoney:transactions';
   
   const [transactions, setTransactions] = useState<Transaction[]>([]);  
   
+  const generateId = ():number => {
+    return transactions.length ? Math.max(...transactions.map(transaction => transaction.id)) + 1 : 1;
+  }
+
+  const getSavedTransactions = (key:string): Transaction[] => {
+    const transactions = localStorage.getItem(key);
+    return transactions ? JSON.parse(transactions) : [];
+  }
+
   useEffect(() => {
-    api.get("transactions")
-      .then(response => { setTransactions(response.data.transactions)});
+    const savedTransactions = getSavedTransactions(KEY);
+    setTransactions(savedTransactions);
   }, []);
 
-  async function createTransaction(transactionInput:TransactionInput) {
-    const response = await api.post('/transactions', {
-      ...transactionInput, 
-      createdAt: new Date()}
-    );
-    const {transaction} = response.data; 
+  function deleteTransaction(id: number){
+    const transactionsToNotDelete = transactions.filter(transaction => transaction.id !== id);
+    setTransactions(transactionsToNotDelete);
+    localStorage.setItem(KEY, JSON.stringify(transactionsToNotDelete));
+  }
 
-    setTransactions([...transactions, transaction]);
+  const saveTransactionToLocalstorage = (key: string, transaction:Transaction):void => {
+    const newTransactions = [
+      ...transactions, transaction];
+    localStorage.setItem(key, JSON.stringify(newTransactions));
+    setTransactions(newTransactions);
+  }
+
+  function createTransaction(transactionInput:TransactionInput) {
+    const transaction = {
+      ...transactionInput,
+      id: generateId(),
+      createdAt: new Date().toISOString(),
+    };
+
+    saveTransactionToLocalstorage(KEY, transaction);
   }
 
   return (
     <TransactionsContext.Provider 
-      value={{transactions, createTransaction}}>
+      value={{transactions, createTransaction, deleteTransaction}}>
       {children}
     </TransactionsContext.Provider>
   );

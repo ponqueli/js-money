@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "react-modal";
-import { createServer, Model } from "miragejs";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { TransactionsProvider } from "./hooks/useTransactions";
 import { Dashboard } from "./components/Dashboard";
@@ -8,47 +9,6 @@ import { Header } from "./components/Header";
 import { GlobalStyle } from "./styles/global";
 
 Modal.setAppElement("#root");
-
-createServer({
-  models:{
-    transaction: Model,
-  },
-
-  seeds(server){
-    server.db.loadData({
-      transactions:[
-        { 
-          id:1, 
-          title: "Salário", 
-          amount: 1000, 
-          category: "Receita", 
-          type: "deposit", 
-          createdAt: new Date('2021-01-01 09:22:22')
-        },
-        { 
-          id:2, 
-          title: "Energia Elétrica", 
-          amount: 250, 
-          category: "casa", 
-          type: "withdraw", 
-          createdAt: new Date('2022-02-02 10:10:10')
-        },
-      ],
-    })
-  },
-
-  routes() {
-    this.namespace = "api";
-    this.get("/transactions", () => {
-      return this.schema.all("transaction");
-    });
-
-    this.post("/transactions", (schema,request) => {
-      const data = JSON.parse(request.requestBody);
-      return schema.create("transaction", data);
-    });
-  }
-})
 
 export function App() {
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
@@ -71,6 +31,20 @@ export function App() {
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
       />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+        {/* Same as */}
+      <ToastContainer />
 
       <GlobalStyle/>
     </TransactionsProvider>

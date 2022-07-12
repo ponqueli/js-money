@@ -1,7 +1,9 @@
 import { FormEvent, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useTransactions } from '../../hooks/useTransactions';
 import Modal from "react-modal";
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
+import 'react-toastify/dist/ReactToastify.css';
 import incomeImg from '../../assets/entrada.svg';
 import outcomeImg from '../../assets/saida.svg';
 import closeImg from '../../assets/fechar.svg';
@@ -25,9 +27,16 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
     setType('deposit');
   }
 
-  async function handleCreateNewTransaction(event:FormEvent) {
+  function isValidateForm() {
+    if(title.trim().length === 0) return false;
+    if(amount <= 0) return false;
+    if(category.trim().length === 0) return false;
+    return true;
+  }
+
+  function handleCreateNewTransaction(event:FormEvent) {
     event.preventDefault();
-    await createTransaction({ 
+    createTransaction({ 
       title,
       amount,
       category,
@@ -36,6 +45,15 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
     
     resetForm();
     onRequestClose();
+    toast.success('Transação criada com sucesso!', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   return(
@@ -95,7 +113,10 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
           onChange={(event) => setCategory(event.target.value)}
         />
 
-        <button type="submit">
+        <button 
+          type="submit"
+          disabled={!isValidateForm()}
+          >
           Cadastrar
         </button>
       </Container>
