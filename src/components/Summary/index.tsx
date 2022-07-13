@@ -8,11 +8,11 @@ export function Summary(){
   const {transactions} = useTransactions();
   const summary = transactions.reduce((accumulator, transaction) => {
     if(transaction.type==='deposit'){
-      accumulator.deposits += transaction.amount;
-      accumulator.total += transaction.amount;
+      accumulator.deposits += Number(transaction.amount);
+      accumulator.total += Number(transaction.amount);
     }else{
-      accumulator.withdrawals += transaction.amount;
-      accumulator.total -= transaction.amount;
+      accumulator.withdrawals += Number(transaction.amount);
+      accumulator.total -= Number(transaction.amount);
     }
   return accumulator;
   }, {

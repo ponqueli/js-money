@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useTransactions } from '../../hooks/useTransactions';
 import Modal from "react-modal";
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
@@ -15,21 +15,21 @@ interface NewTransactionModalProps{
 
 export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModalProps) {
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [type, setType] = useState<'deposit' | 'withdraw'>('deposit');
   const {createTransaction} = useTransactions();
 
   function resetForm() {
     setTitle('');
-    setAmount(0);
+    setAmount('');
     setCategory('');
     setType('deposit');
   }
 
   function isValidateForm() {
     if(title.trim().length === 0) return false;
-    if(amount <= 0) return false;
+    if(amount.trim().length === 0) return false;
     if(category.trim().length === 0) return false;
     return true;
   }
@@ -83,7 +83,7 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
           type="number" 
           placeholder="Valor"
           value={amount}
-          onChange={(event) => setAmount(Number(event.target.value))}
+          onChange={(event) => setAmount(event.target.value)}
         />
 
         <TransactionTypeContainer>

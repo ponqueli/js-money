@@ -5,12 +5,18 @@ export const Container = styled.div`
   overflow: auto;
 
   @media screen and (max-width: 69rem){
-    margin-top: 2rem;
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
   }
 
   table {
     width: 100%;
     border-spacing: 0 0.5rem;
+
+    @media screen and (max-width: 26rem){
+      border-collapse: separate;
+      border-spacing: 0 1.5rem;
+    }
 
     th {
       color: var(--text-body);
@@ -23,7 +29,7 @@ export const Container = styled.div`
         display: none;
       }
       
-      @media screen and (max-width: 24rem){
+      @media screen and (max-width: 26rem){
         &.short-text{
           display: flex;
           padding: 0;
@@ -34,10 +40,6 @@ export const Container = styled.div`
           display: none;
         }
       }
-    }
-
-    tr {
-      position: relative;
     }
 
     td {
@@ -76,17 +78,19 @@ export const Container = styled.div`
           }
         }
 
-        @media screen and (max-width: 24rem){
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
+        @media screen and (max-width: 26rem){
+          display: flex;
+          justify-content: end;
+          margin-bottom: 0.5rem
         }
       }
 
-      @media screen and (max-width: 24rem){
+      @media screen and (max-width: 26rem){
         flex-direction: column;
         display: flex;
         padding: 0.25rem 1rem;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
         &.deposit {
           font-size: 1.5rem;
         }

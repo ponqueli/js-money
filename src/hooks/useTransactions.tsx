@@ -1,10 +1,9 @@
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react';
-import { api } from '../services/app';
 
 interface Transaction{
   id: number;
   title: string;
-  amount: number;
+  amount: string;
   type: "deposit" | "withdraw";
   category: string;
   createdAt: string;
